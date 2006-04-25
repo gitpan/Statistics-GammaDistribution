@@ -1,9 +1,8 @@
 package Statistics::GammaDistribution;
 use strict;
-$^W=1;
-use Carp;
+use warnings;
 use vars qw ( $VERSION );
-$VERSION = 0.01;
+$VERSION = 0.02;
 
 sub PI(){ 3.14159265358979323846264338328; }
 sub E() { 2.71828182845904523536028747135; }
@@ -44,9 +43,9 @@ sub rand
     my $order   = $self->{_a};
     my $n_order = $self->{_na};
 
-    croak('order of distribution must be set greater than zero')
+    die('Statistics::GammaDistribution::rand() - order of distribution must be set greater than zero using set_order()')
 	unless ((defined $order) && ($order>0));
-
+    
     if ($order == $n_order){
 	return $scale * _gamma_int($n_order);
     } elsif ($n_order == 0) {
@@ -61,7 +60,7 @@ sub rand
 sub _rand_nonzero
 {
     my $rand;
-    while(($rand = CORE::rand()) && ($rand == 0))
+    while(!($rand = CORE::rand()))
     {
 	# loop
     }
@@ -127,7 +126,7 @@ sub dirichlet_dist
 
     for(my $i=0; $i<=$#alpha; $i++){
 	my $order = $alpha[$i];
-	croak('every parameter to dirichlet_dist() must be greater than zero')
+	die('Statistics::GammaDistribution::dirichlet_dist() - every parameter must be greater than zero')
 	    unless ((defined $order) && ($order>0));
 	$self->set_order($order);
 	$theta[$i] = $self->rand(1);
@@ -199,11 +198,11 @@ order=alpha_i, scale=1, and renormalizing. See A.M. Law, W.D. Kelton, Simulation
 
 =head1 AUTHOR
 
-Nigel Wetters <nwetters@cpan.org>
+Nigel Wetters Gourlay <nwetters@cpan.org>
 
 =head1 COPYRIGHT
 
-Copyright (c) 2003, Nigel Wetters. NO WARRANTY.
+Copyright (c) 2003-06, Nigel Wetters Gourlay. NO WARRANTY.
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License

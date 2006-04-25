@@ -25,7 +25,7 @@ WriteMakefile(
 	      VERSION_FROM    => "lib/$PACKAGE_FILE.pm", # finds $VERSION
 	      PREREQ_PM       => {
 		  },
-	      AUTHOR          => 'Nigel Wetters <nigel.wetters@lshtm.ac.uk>',
+	      AUTHOR          => 'Nigel Wetters Gourlay <nwetters@cpan.org>',
 	      ABSTRACT_FROM   => "lib/$PACKAGE_FILE.pm"
 	      );
 
